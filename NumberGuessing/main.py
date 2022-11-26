@@ -11,7 +11,7 @@ game_on = True #The game keeps playing until user guess it right
 while game_on:
 
     guess = int(input("Guess number: "))
-    print(ans) #testing
+    # print(ans) #testing
 
     if lower > upper:
         print("Sorry your lower number cannot be bigger than upper number. Try again.")
