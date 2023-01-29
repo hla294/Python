@@ -31,3 +31,5 @@
 #### - When paddles miss the ball, the ball goes to the default position.
 
 ## 8. Keep score
+#### - If the left paddle misses, the right paddles gets score
+#### - Vise Versa

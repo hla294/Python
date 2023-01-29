@@ -1,6 +1,7 @@
 from turtle import Screen, Turtle
 from paddle import Paddle
 from ball import Ball
+from scoreboard import Scoreboard
 import time
 
 screen = Screen()
@@ -13,6 +14,7 @@ r_paddle = Paddle((350, 0))  # paddle for the right user
 l_paddle = Paddle((-350, 0)) # paddle for the left user
 # top_paddle = Paddle((100,100))
 ball = Ball()
+scoreboard = Scoreboard()
 
 screen.listen() # In order to use keyboard buttons to interact with the program
 screen.onkey(r_paddle.go_up, "Up")  # onkey(function, key)
@@ -37,6 +39,7 @@ while game_is_on:
     # Detect R paddle misses the ball
     if ball.xcor() > 380:
         ball.reset_position()
+        scoreboard.l_point()
     # Detect L paddle misses the ball
     if ball.xcor() < -380:
         ball.reset_position()
