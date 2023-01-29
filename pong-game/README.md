@@ -25,7 +25,9 @@
 ##### - then the opponent gets a score
 
 ## 6. Detect collision with paddle
+#### - Ball only bounces on the paddles
 
 ## 7. Detect when paddle misses
+#### - When paddles miss the ball, the ball goes to the default position.
 
 ## 8. Keep score
