@@ -1,18 +1,47 @@
 from tkinter import *
+from tkinter import messagebox
+from random import choice, randint, shuffle
+import pyperclip
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+#Password Generator Project
+def generate_password():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
+    password_letters = [choice(letters) for _ in range(randint(8, 10))]  # Return a number between 8 and 10 (both included)
+    password_symbols = [choice(symbols) for _ in range(randint(2, 4))]  # Return a number between 2 and 4 (included)
+    password_numbers = [choice(numbers) for _ in range(randint(2, 4))]  # Return a number between 2 and 4 (included)
+
+    password_list = password_letters + password_symbols + password_numbers
+    shuffle(password_list)
+
+    password = "".join(password_list)
+    password_entry.insert(0, password)
+
+    pyperclip.copy(password)  # automatically copy the password so that we can just paste it on the website for sign up
+    # password = ""
+    # for char in password_list:
+    #   password += char
+
+    # print(f"Your password is: {password}")
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
-
     website = website_entry.get()
     email = email_entry.get()
     password = password_entry.get()
 
-    with open("data.txt", "a") as data_file:  # a : appending the data, not overwriting
-        data_file.write(f"{website} | {email} | {password}\n")
-        website_entry.delete(0, END)  # Deleting the website entry after adding
-        password_entry.delete(0, END)  # Deleting the password entry after adding
+    if len(website) == 0 or len(password) == 0:
+        messagebox.showinfo(title="Oops", message="Please make sure you enter all the fields!!")
+    else:
+        is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} "
+                                                      f"\nPassword: {password} \nAre you sure you want to save?")
+        if is_ok:
+            with open("data.txt", "a") as data_file:  # a : appending the data, not overwriting
+                data_file.write(f"{website} | {email} | {password}\n")
+                website_entry.delete(0, END)  # Deleting the website entry after adding
+                password_entry.delete(0, END)  # Deleting the password entry after adding
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -44,7 +73,7 @@ password_entry = Entry(width=21)
 password_entry.grid(row=3,column=1)
 
 # Buttons
-generate_password_button = Button(text="Generate Password")
+generate_password_button = Button(text="Generate Password", command = generate_password)
 generate_password_button.grid(row=3, column=2)
 add_button = Button(text="Add", width=36, command=save)
 add_button.grid(row=4, column=1, columnspan=2)
