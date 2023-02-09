@@ -8,11 +8,8 @@ def get_quote():
     response = requests.get(url="https://api.kanye.rest")
     response.raise_for_status()  # Error handling, raise exceptions
     data = response.json()  # data in json format
-
     quote = data["quote"]
-
-    quote_text = canvas.create_text(150, 207, text=f"{quote}", width=250,
-                                    font=("Arial", 30, "bold"), fill="white")
+    canvas.itemconfig(quote_text, text=quote)  # change the attributes of canvas items after created
 
 #-------------------- UI SETUP ---------------------------#
 
