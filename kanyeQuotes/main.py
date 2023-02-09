@@ -1,6 +1,18 @@
 from tkinter import *
 import requests
 
+def get_quote():
+    """
+    Getting quote from the kanye api
+    """
+    response = requests.get(url="https://api.kanye.rest")
+    response.raise_for_status()  # Error handling, raise exceptions
+    data = response.json()  # data in json format
+
+    quote = data["quote"]
+
+    quote_text = canvas.create_text(150, 207, text=f"{quote}", width=250,
+                                    font=("Arial", 30, "bold"), fill="white")
 
 #-------------------- UI SETUP ---------------------------#
 
